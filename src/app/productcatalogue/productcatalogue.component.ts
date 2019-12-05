@@ -1,3 +1,5 @@
+
+  
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -42,8 +44,8 @@ export class ProductcatalogueComponent implements OnInit {
       this.List=data;
     })
 
-    this.cid=localStorage.getItem('token');
-    let url3="http://b8java28.iiht.tech:3000/viewcart?cid="+this.cid;
+    this.cid=localStorage.getItem('id');
+    let url3="http://b8java28.iiht.tech:3000/viewcart/"+this.cid;
   fetch(url3,{
     method:"GET",
     headers:{
@@ -98,9 +100,9 @@ export class ProductcatalogueComponent implements OnInit {
     }
 
     loggedInUser(){
-      this.userid =localStorage.getItem('token');
+      this.userid =localStorage.getItem('id');
       if(this.userid!=undefined){ 
-      this._url = 'http://b8java28.iiht.tech:3000/findcustomer?cid='+this.userid;
+      this._url = 'http://b8java28.iiht.tech:3000/findcustomerid/'+this.userid;
       fetch(this._url)
       .then(res=>res.json())
       .then(data=>{
@@ -114,7 +116,18 @@ export class ProductcatalogueComponent implements OnInit {
 
   addtocart(pid:any){
     console.log("bought the product",pid);
-    this.cid=localStorage.getItem('token');
+
+    let products = [];
+    if(localStorage.getItem('products')){
+        products = JSON.parse(localStorage.getItem('products'));
+    }
+    products.push({'productId' : pid});
+    localStorage.setItem('products', JSON.stringify(products));
+
+
+
+
+    this.cid=localStorage.getItem('id');
     let buy="yes";
     //for(let i of Object.keys(this.cartlist)){
     for(let i of this.cartlist){
@@ -147,6 +160,7 @@ export class ProductcatalogueComponent implements OnInit {
 
 logout(){
   localStorage.removeItem('token');
+  localStorage.removeItem('id');
   window.location.reload();
 }
 

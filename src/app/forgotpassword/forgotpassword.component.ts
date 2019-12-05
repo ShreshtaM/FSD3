@@ -22,13 +22,13 @@ export class ForgotpasswordComponent implements OnInit {
   sendotp(){
     this.email=(<HTMLOutputElement>document.getElementById("email")).value;
     console.log(this.email);
-    let url="http://b8java28.iiht.tech:3000/findbyemail?email="+this.email;
+    let url="http://b8java18.iiht.tech:3000/findbyemail?email="+this.email;
     fetch(url)
     .then(res=>res.json())
     .then(data=>{
       console.log(data)
        this.name=data[0].customername;
-       let url="http://b8java28.iiht.tech:3000/resetpassword"
+       let url="http://b8java18.iiht.tech:3000/resetpassword"
        fetch(url,{
         method : "POST",
         headers: {
@@ -76,7 +76,7 @@ export class ForgotpasswordComponent implements OnInit {
     let cnfpwd=(<HTMLOutputElement>document.getElementById('cnfpwd')).value;
     console.log(mypwd+" "+cnfpwd);
     if(mypwd==cnfpwd){
-      let url="http://b8java28.iiht.tech:3000/changepassword?email="+this.email+"&pass="+mypwd;
+      let url="http://b8java18.iiht.tech:3000/changepassword?email="+this.email+"&pass="+mypwd;
       console.log(url)
       fetch(url)
     .then(res=>res.json())

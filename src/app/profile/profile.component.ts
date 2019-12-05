@@ -48,9 +48,9 @@ cart:string;
       console.log(data)
     })
 
-    this.cid =localStorage.getItem('token');
+    this.cid =localStorage.getItem('id');
     if(this.cid!=undefined){ 
-    this.urlnew = 'http://b8java28.iiht.tech:3000/findcustomer?cid='+this.cid;
+    this.urlnew = 'http://b8java28.iiht.tech:3000/findcustomerid/'+this.cid;
     fetch(this.urlnew)
     .then(res=>res.json())
     .then(data=>{
@@ -62,7 +62,7 @@ cart:string;
    this.username='noLoggedInUser'
   }
 
-  let url3="http://b8java28.iiht.tech:3000/viewcart?cid="+this.cid;
+  let url3="http://b8java28.iiht.tech:3000/viewcart/"+this.cid;
   fetch(url3,{
     method:"GET",
     headers:{
@@ -81,8 +81,8 @@ cart:string;
   })
     //********************* */
 
-    this.cid=localStorage.getItem('token');
-    this.url=`http://b8java28.iiht.tech:3000/findcustomer?cid=`+this.cid;
+    this.cid=localStorage.getItem('id');
+    this.url=`http://b8java28.iiht.tech:3000/findcustomerid/`+this.cid;
     fetch(this.url)
     .then(res=>res.json())
     .then(data=>{
@@ -96,7 +96,9 @@ cart:string;
      
   }
   logout(){
+    alert("You have logged out from this session!");
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
     window.location.reload();
   }
 }

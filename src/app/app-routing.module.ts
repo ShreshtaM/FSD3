@@ -24,15 +24,18 @@ import { HomeComponent } from './home/home.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CartverifyComponent } from './cartverify/cartverify.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { PaymentpayComponent } from './paymentpay/paymentpay.component';
 
 const routes: Routes = [
   {path:'',component:SelectcityComponent},
   {path:'home' ,component:HomepageComponent},
   {path:'homepage/:city' ,component:HomepageComponent},
+  {path:'login',component:LoginComponent},
   {path:'productcatalogue/:category/:city', component:ProductcatalogueComponent},
   {path:'cartpage',component:CartpageComponent},
   {path:'viewproduct/:city/:pid',component:ViewproductComponent},
   {path:'advertise',component:AdvertiseComponent},
+  {path:'paymentpay',component:PaymentpayComponent},
   {path:'navbar',component:NavbarComponent},
   {path:'cartitem',component:CartitemComponent},
   {path:'register',component:RegistrationComponent},
@@ -95,7 +98,7 @@ export const RoutingComponent =[SelectcityComponent, HomepageComponent ,Productc
                                 LoginComponent,RegistrationComponent,PageNotFoundComponent, ProfileComponent,
                                 OrderComponent,
                                 PaymentComponent,
-                                NotificationComponent,
+                                NotificationComponent,LoginComponent,
                                 RewardComponent,
                                 LogoutComponent,
                                 AddressComponent,

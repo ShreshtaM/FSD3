@@ -33,10 +33,10 @@
   <div style=" text-align:center ">
     <!-- Navbar content -->
     <div style="display:inline-block">
-        <a class="btn" href="#" style="color:white">
-            <h6 style="color:white">&nbsp;Home&nbsp;</h6>
-          </a></div><i class="fa fa-home text-grey fa-xs " style="color:lightgray;" aria-hidden="true"></i>
-          
+      <a class="btn" href="#" style="color:white">
+        <h6 style="color:white">&nbsp;Home&nbsp;</h6>
+      </a></div><i class="fa fa-home text-grey fa-xs " style="color:lightgray;" aria-hidden="true"></i>
+
     <div style="display:inline-block"><a class="btn" *ngIf="username=='noLoggedInUser', else helloUser"
         data-toggle="modal" data-target="#LoginModal" style="text-decoration:none">
         <h6 style="color:white">&nbsp;Login&nbsp;</h6>
@@ -44,7 +44,7 @@
 
     <ng-template #helloUser>
       <a href='profile' class="btn" style="text-decoration:none">
-        <h6 style="color:white">&nbsp;My Profile&nbsp;</h6>
+        <h6 style="color:white">&nbsp;{{username}}&nbsp;</h6>
       </a>
       <a class="btn" (click)=logout() style="text-decoration:none">
         <h6 style="color:white">&nbsp;logout&nbsp;</h6>
@@ -75,29 +75,30 @@
 <div class="container-fluid">
   <div class="row content">
 
-    <div class="col-sm-3 bg-dark">
-      <div class="card-header bg-dark">
-        <h4 style="-webkit-text-fill-color: cornsilk">You may also like</h4>
-      </div>
-      <div class="card" style="width: 15rem; background-color:turquoise" style="float:right">
-        <div *ngFor="let object2 of List2" class="mx-5 card card text-center shadow-lg p-3 mb-5 bg-white rounded"
-          style=" display:inline-block;border-color: turquoise; ">
-          <div class="card-body images">
-            <img src={{object2.productimage}} style="border: none" class="img-thumbnail pics" alt="Cinque Terre">
+    <div class="col-sm-3   ">
+      <div class="panel-body">
+        <div class="card-header bg-dark">
+          <h4 style="-webkit-text-fill-color: cornsilk">You may also like</h4>
+        </div>
+        <div class="card" style="width: 15rem; background-color:turquoise" style="float:right">
+          <div *ngFor="let object2 of List2" class="mx-5 card card text-center shadow-lg p-3 mb-5 bg-white rounded"
+            style=" display:inline-block;border-color: turquoise; ">
+            <div class="card-body images">
+              <img src={{object2.productimage}} style="border: none" class="img-thumbnail pics" alt="Cinque Terre">
+            </div>
+            <h5 class="card-title">{{object2.productname}}</h5>
+            <a href="/viewproduct/{{city}}/{{object2.productid}}" class="btn btn-primary fa fa-search fa-lg search"
+              style="border-radius: 50%"></a>
+            <span>&nbsp;&emsp;&nbsp;</span>
+            <span *ngIf="username=='noLoggedInUser', else helloUser"><a data-toggle="modal" data-target="#LoginModal"
+                class="btn btn-success fa fa-cart-plus fa-lg search" style="border-radius:50%"></a></span>
+            <ng-template #helloUser>
+              <a class="btn" (click)=addtocart(object2.productid) class="btn btn-success fa fa-cart-plus fa-lg search"
+                style="border-radius:50%" style="text-decoration:none"></a>
+            </ng-template>
           </div>
-          <h5 class="card-title">{{object2.productname}}</h5>
-          <a href="/viewproduct/{{city}}/{{object2.productid}}" class="btn btn-primary fa fa-search fa-lg search"
-            style="border-radius: 50%"></a>
-          <span>&nbsp;&emsp;&nbsp;</span>
-          <span *ngIf="username=='noLoggedInUser', else helloUser"><a data-toggle="modal" data-target="#LoginModal"
-              class="btn btn-success fa fa-cart-plus fa-lg search" style="border-radius:50%"></a></span>
-          <ng-template #helloUser>
-            <a class="btn" (click)=addtocart(object.productid) class="btn btn-success fa fa-cart-plus fa-lg search"
-              style="border-radius:50%" style="text-decoration:none"></a>
-          </ng-template>
         </div>
       </div>
-
     </div>
 
 
@@ -116,9 +117,16 @@
 
             </div>
             <div class="card-body">
-                <img src={{object.productimage}} style="border: none" class="img-thumbnail pics" alt="Cinque Terre">
-                <img [src]="object.productimage | json" >
-
+                <ngx-image-zoom
+                [thumbImage]=myThumbnail
+                [fullImage]="myFulresImage"
+                [magnification]="1.25"
+                [enableScrollZoom]="true"
+                [enableLens]="true"
+                [lensWidth]="250"
+                [lensHeight]="250"
+            ></ngx-image-zoom>
+              <br/>
               <h5 class="font-weight-bold mb-3">Description</h5>
               <p class="mb-0"> {{object.productdescription}}</p>
             </div>
@@ -143,22 +151,22 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
-    
+
     <div class="col-sm-3 sidenav">
-        <br/>
-        
+      <br />
+
       <app-advertise1></app-advertise1>
-      <br/>
-      <br/>
+      <br />
+      <br />
       <app-advertise2></app-advertise2>
     </div>
   </div>
 </div>
 <footer class="container-fluid">
-  <p>Footer Text</p>
+  
 </footer>
 
 <button id="openModal" #openModal [hidden]="true" data-controls-modal="#login-modal" data-backdrop="static"

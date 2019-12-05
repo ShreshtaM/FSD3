@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from  '@angular/common/http';
 
@@ -34,7 +35,7 @@ export class CartverifyComponent implements OnInit {
          key:any;
          txnid:any;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient,private router:Router) { 
 
   }
 
@@ -43,8 +44,8 @@ export class CartverifyComponent implements OnInit {
     this.amount=+localStorage.getItem('amount');
     localStorage.removeItem('amount');
     ((<HTMLInputElement>document.getElementById("spinner")).hidden=true);
-    this.cid=localStorage.getItem('token');
-    let url="http://b8java28.iiht.tech:3000/findcustomer?cid="+this.cid;
+    this.cid=localStorage.getItem('id');
+    let url=`http://b8java28.iiht.tech:3000/findcustomerid/`+this.cid;
     fetch(url)
     .then(res=>res.json())
     .then(data=>{
@@ -60,7 +61,7 @@ export class CartverifyComponent implements OnInit {
       }    
     })
 
-    let url3="http://b8java28.iiht.tech:3000/viewcart?cid="+this.cid;
+    let url3="http://b8java28.iiht.tech:3000/viewcart/"+this.cid;
      fetch(url3,{
       method:"GET",
       headers:{
@@ -202,6 +203,7 @@ export class CartverifyComponent implements OnInit {
   }
 
   portal(){
-    this.submitbtn.nativeElement.click();
+   // this.submitbtn.nativeElement.click();
+   this.router.navigate(['paymentpay']);
   }
 }
